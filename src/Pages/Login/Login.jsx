@@ -50,7 +50,7 @@ const Login = () => {
         googleSignInUser()
         .then(result =>{
             const user = result.user
-            const savedUser = {name: user.displayName ,email: user.email, university : null, address: null}
+            const savedUser = {name: user.displayName ,primaryEmail: user.email, secondaryEmail: null, university : null, address: null}
             axios.post(`${import.meta.env.VITE_BASE_URL}/all-users`, savedUser)
             setUser(user)
             setLoading(false)
@@ -69,7 +69,7 @@ const Login = () => {
         githubSignInUser()
             .then(result => {
                 const user = result.user;
-                const savedUser = { name: user?.displayName, email: null, university : null, address: null}
+                const savedUser = { name: user?.displayName, primaryEmail: user.email, secondaryEmail: null, university : null, address: null}
                 axios.post(`${import.meta.env.VITE_BASE_URL}/all-users`, savedUser)
                 setUser(user)
                 setLoading(false)

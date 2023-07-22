@@ -14,18 +14,10 @@ const Navbar = () => {
         queryKey: ['current-user'],
         enabled: !loading && !!user,
         queryFn: async () => {
-            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/current-user?email=${user.email}`);
+            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/current-user?email=${user?.email}`);
             return response.data;
         },
     });
-
-    // useEffect(()=>{
-    //    if(user){
-    //     const response = axios.get(`${import.meta.env.VITE_BASE_URL}/current-user?email=${user?.email}`);
-    //    setCurrentUser(response.data)
-    //    }
-
-    // },[user])
 
     const handleSignOut = () => {
         signOutUser()
