@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
 import { Helmet } from "react-helmet";
 import Loader from '../Shared/Loader/Loader';
 import axios from 'axios';
@@ -14,7 +14,7 @@ const Login = () => {
     const [show, setShow] = useState(true)
     const [error, setError] = useState('')
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
-    const { setUser, loading, setLoading, signInUser, googleSignInUser} = useContext(AuthContext);
+    const { setUser, loading, setLoading, signInUser, googleSignInUser, githubSignInUser} = useContext(AuthContext);
     const location = useLocation()
     const navigate = useNavigate();
     const from = location.state?.form?.pathname || '/'
@@ -68,6 +68,17 @@ const Login = () => {
             setLoading(false)
         })
     }
+    const handleGithubSignIn = () => {
+        githubSignInUser()
+            .then(result => {
+                const user = result.user;
+                const savedUser = { name: user?.displayName, email: user?.email, role: 'student' }
+                axios.post(`${import.meta.env.VITE_BASE_URL}/all-users`, savedUser)
+                setUser(user)
+                setLoading(false)
+                toast.success('Sign up successfully')
+            })
+    }
 
     return (
         <>
@@ -98,6 +109,7 @@ const Login = () => {
                 </form>
                 <div className='divider text-black'>Or</div>
                 <div onClick={handleGoogleSignIn} className='text-black cursor-pointer flex items-center justify-evenly w-full py-3 px-2 md:px-10 mx-auto border-2 mt-3 border-black rounded-full'><FcGoogle className='w-7 h-7' /> <p className='font-bold md:text-xl text-center'>Sign in with Google</p></div>
+                <div onClick={handleGithubSignIn} className='text-black cursor-pointer flex items-center justify-evenly w-full py-3 px-2 md:px-10 mx-auto border-2 mt-3 border-black rounded-full'><FaGithub className='w-7 h-7' /> <p className='font-bold md:text-xl text-center'>Sign in with Google</p></div>
             </div>
         </>
     );
