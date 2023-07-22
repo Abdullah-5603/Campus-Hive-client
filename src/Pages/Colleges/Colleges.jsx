@@ -26,7 +26,7 @@ const Colleges = () => {
                     {colleges.map((college, index) => (
                         // Return JSX elements here
                         <div key={index} className='card w-80 lg:w-96 glass mx-auto'>
-                            <figure><img src={college.image} alt={college.name} /></figure>
+                            <figure><img className='w-full h-[200px] md:h-[250px] lg:h-[270px]'  src={college.image} alt={college.name} /></figure>
                             <div className='card-body'>
                                 <h2 className='card-title'>{college.name}</h2>
                                 <p className='font-semibold'>Admission Date: <span className='font-normal'>{college.admission_dates}</span></p>

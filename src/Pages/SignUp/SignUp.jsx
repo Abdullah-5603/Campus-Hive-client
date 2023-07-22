@@ -33,7 +33,7 @@ const Login = () => {
         createUser(email, password)
             .then((result) => {
                 const user = result.user;
-                const savedUser = { name: name, email: user.email, role: 'student' }
+                const savedUser = { name: name, email: user.email, university : null, address: null }
                 axios.post(`${import.meta.env.VITE_BASE_URL}/all-users`, savedUser)
                 setLoading(false)
                 toast.success('Sign up successfully')
@@ -57,7 +57,7 @@ const Login = () => {
         googleSignInUser()
             .then(result => {
                 const user = result.user;
-                const savedUser = { name: user.displayName, email: user.email, role: 'student' }
+                const savedUser = { name: user.displayName, email: user.email, university : null, address: null }
                 axios.post(`${import.meta.env.VITE_BASE_URL}/all-users`, savedUser)
                 setUser(user)
                 setLoading(false)
@@ -76,7 +76,7 @@ const Login = () => {
         githubSignInUser()
             .then(result => {
                 const user = result.user;
-                const savedUser = { name: user?.displayName, email: user?.email, role: 'student' }
+                const savedUser = { name: user?.displayName, email: null, university : null, address: null }
                 axios.post(`${import.meta.env.VITE_BASE_URL}/all-users`, savedUser)
                 setUser(user)
                 setLoading(false)

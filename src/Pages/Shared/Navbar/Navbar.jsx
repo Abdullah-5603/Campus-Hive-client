@@ -1,11 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../../Hooks/useAuth';
 import { toast } from 'react-hot-toast';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 const Navbar = () => {
-    const { user, signOutUser, setLoading } = useAuth()
+    const { user, signOutUser, setLoading, loading } = useAuth()
     const location = useLocation()
+    // const [currentUser, setCurrentUser] = useState({})
+
+    const { data: currentUser = {} } = useQuery({
+        queryKey: ['current-user'],
+        enabled: !loading && !!user,
+        queryFn: async () => {
+            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/current-user?email=${user.email}`);
+            return response.data;
+        },
+    });
+
+    // useEffect(()=>{
+    //    if(user){
+    //     const response = axios.get(`${import.meta.env.VITE_BASE_URL}/current-user?email=${user?.email}`);
+    //    setCurrentUser(response.data)
+    //    }
+
+    // },[user])
 
     const handleSignOut = () => {
         signOutUser()
@@ -17,7 +37,7 @@ const Navbar = () => {
             console.log(error.message)
         })
     }
-    // console.log(location.pathname);
+    // console.log(currentUser, user);
     return (
         <div className="navbar bg-cyan-500 md:px-10">
             <div className="navbar-start">
@@ -34,7 +54,7 @@ const Navbar = () => {
                             user && <li><Link onClick={handleSignOut} className={`hover:text-white hover:bg-transparent`}>Sign Out</Link></li>
                         }
                         {
-                            user && <li><Link className={`hover:text-white hover:bg-transparent`} to='/profile'>{user.displayName}</Link></li>
+                            user && <li><Link className={`hover:text-white hover:bg-transparent`} to='/profile'>{currentUser.name}</Link></li>
                         }
                         {
                             !user && <li><Link className={`hover:text-white hover:bg-transparent ${location.pathname == '/login' && 'text-white'}`} to='/login'>Login</Link></li>
@@ -53,7 +73,7 @@ const Navbar = () => {
                         user && <li><Link onClick={handleSignOut} className={`hover:text-white hover:bg-transparent`}>Sign Out</Link></li>
                     }
                     {
-                        user && <li><Link className={`hover:text-white hover:bg-transparent`} to='/profile'>{user.displayName}</Link></li>
+                        user && <li><Link className={`hover:text-white hover:bg-transparent`} to='/profile'>{currentUser.name}</Link></li>
                     }
                     {
                         !user && <li><Link className={`hover:text-white hover:bg-transparent ${location.pathname == '/login' && 'text-white'}`} to='/login'>Login</Link></li>

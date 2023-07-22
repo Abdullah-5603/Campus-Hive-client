@@ -50,14 +50,11 @@ const Login = () => {
         googleSignInUser()
         .then(result =>{
             const user = result.user
-            const savedUser = {name: user.displayName ,email: user.email, image: user.photoURL, role: 'student'}
+            const savedUser = {name: user.displayName ,email: user.email, university : null, address: null}
             axios.post(`${import.meta.env.VITE_BASE_URL}/all-users`, savedUser)
             setUser(user)
             setLoading(false)
-            Swal.fire({
-                icon: 'success',
-                text: 'Login Successfully',
-              })
+            toast.success('Login successfully')
             navigate(from, {replace : true});
         })
         .catch(err =>{
@@ -72,11 +69,11 @@ const Login = () => {
         githubSignInUser()
             .then(result => {
                 const user = result.user;
-                const savedUser = { name: user?.displayName, email: user?.email, role: 'student' }
+                const savedUser = { name: user?.displayName, email: null, university : null, address: null}
                 axios.post(`${import.meta.env.VITE_BASE_URL}/all-users`, savedUser)
                 setUser(user)
                 setLoading(false)
-                toast.success('Sign up successfully')
+                toast.success('Login successfully')
             })
     }
 
