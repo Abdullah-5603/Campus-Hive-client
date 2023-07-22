@@ -6,6 +6,7 @@ import Admission from "../Pages/Admission/Admission";
 import MyColleges from "../Pages/MyColleges/MyColleges";
 import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/SignUp/SignUp";
+import ResetPassword from "../Pages/ResetPassword/ResetPassword";
 
 const router = createBrowserRouter([
     {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
             {
                 path : 'sign-up',
                 element : <SignUp/>
+            },
+            {
+                path : 'reset-password',
+                element : <ResetPassword/>
             }
         ]
     }
