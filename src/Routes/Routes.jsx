@@ -10,6 +10,7 @@ import ResetPassword from "../Pages/ResetPassword/ResetPassword";
 import CollegeDetails from "../Pages/CollegeDetails/CollegeDetails";
 import ProfilePage from "../Pages/ProfilePage/ProfilePage";
 import PrivateRoute from "./PrivateRoute";
+import ErrorElement from "../ErrorElement/ErrorElement";
 
 const router = createBrowserRouter([
     {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
                 element : <PrivateRoute><ProfilePage/></PrivateRoute>
             }
         ]
+    },
+    {
+        path: "*",
+        element: <ErrorElement/>
     }
 ])
 
