@@ -9,6 +9,7 @@ import SignUp from "../Pages/SignUp/SignUp";
 import ResetPassword from "../Pages/ResetPassword/ResetPassword";
 import CollegeDetails from "../Pages/CollegeDetails/CollegeDetails";
 import ProfilePage from "../Pages/ProfilePage/ProfilePage";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -25,7 +26,7 @@ const router = createBrowserRouter([
             },
             {
                 path : 'college-details/:id',
-                element : <CollegeDetails/>,
+                element : <PrivateRoute><CollegeDetails/></PrivateRoute>,
                 loader : ({params}) => fetch(`${import.meta.env.VITE_BASE_URL}/all-colleges/${params.id}`)
             },
             {
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
             },
             {
                 path : 'my-colleges',
-                element : <MyColleges/>
+                element : <PrivateRoute><MyColleges/></PrivateRoute>
             },
             {
                 path : 'login',
@@ -50,7 +51,7 @@ const router = createBrowserRouter([
             },
             {
                 path : 'profile',
-                element : <ProfilePage/>
+                element : <PrivateRoute><ProfilePage/></PrivateRoute>
             }
         ]
     }

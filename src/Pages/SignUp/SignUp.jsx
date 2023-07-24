@@ -16,7 +16,7 @@ const Login = () => {
     const [error, setError] = useState('')
     const [passwordError, setPasswordError] = useState('')
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { user, setUser, loading, setLoading, createUser, googleSignInUser, githubSignInUser } = useContext(AuthContext)
+    const { user, setUser, loading, setLoading, createUser, googleSignInUser } = useContext(AuthContext)
     const navigate = useNavigate();
 
     const onSubmit = async data => {
@@ -71,17 +71,6 @@ const Login = () => {
             })
     }
 
-    const handleGithubSignIn = () => {
-        githubSignInUser()
-            .then(result => {
-                const user = result.user;
-                const savedUser = { name: user?.displayName, primaryEmail: null, secondaryEmail: null, university : null, address: null }
-                axios.post(`${import.meta.env.VITE_BASE_URL}/all-users`, savedUser)
-                setUser(user)
-                setLoading(false)
-                toast.success('Sign up successfully')
-            })
-    }
     return (
         <>
             <Helmet>
@@ -127,7 +116,6 @@ const Login = () => {
                 </form>
                 <div className='divider'>Or</div>
                 <div onClick={handleGoogleSignIn} className='text-black cursor-pointer flex items-center justify-evenly w-full py-3 px-2 md:px-10 mx-auto border-2 mt-3 border-black rounded-full'><FcGoogle className='w-7 h-7' /> <p className='font-bold md:text-xl text-center'>Sign in with Google</p></div>
-                <div onClick={handleGithubSignIn} className='text-black cursor-pointer flex items-center justify-evenly w-full py-3 px-2 md:px-10 mx-auto border-2 mt-3 border-black rounded-full'><FaGithub className='w-7 h-7' /> <p className='font-bold md:text-xl text-center'>Sign in with Google</p></div>
             </div>
         </>
     );

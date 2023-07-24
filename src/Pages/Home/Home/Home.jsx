@@ -3,7 +3,7 @@ import PopularColleges from '../PopularColeges/PopularColleges';
 import GraduatesGallery from '../GraduatesGallery/GraduatesGallery';
 import Researches from '../Researches/Researches';
 import { Helmet } from 'react-helmet';
-// import Review from '../Review/review';
+import Review from '../Review/Review';
 
 const Home = () => {
     return (
@@ -15,7 +15,7 @@ const Home = () => {
                 <PopularColleges />
                 <GraduatesGallery />
                 <Researches />
-                {/* <Review/> */}
+                <Review/>
             </div>
         </>
     );

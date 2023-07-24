@@ -15,7 +15,7 @@ const Navbar = () => {
         queryKey: ['current-user'],
         enabled: !loading && !!user,
         queryFn: async () => {
-            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/current-user?email=${user?.email}`);
+            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/current-user?email=${user.email}`);
             return response.data;
         },
     });
@@ -30,7 +30,7 @@ const Navbar = () => {
             console.log(error.message)
         })
     }
-    // console.log(currentUser, user);
+    console.log(currentUser, user);
     return (
         <div className="navbar bg-cyan-500 md:px-10">
             <div className="navbar-start">
